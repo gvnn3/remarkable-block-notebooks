@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1404" height="1872" viewBox="0 0 1404 1872">
 <line x1="80.00" y1="80.00" x2="1324.00" y2="80.00" stroke="#999999" stroke-width="1.0"/>
 <line x1="702.00" y1="80.00" x2="702.00" y2="94.24" stroke="#999999" stroke-width="1.0"/>
-<text x="97.80" y="155.63" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#999999">TITLE / NO.</text>
+<text x="97.80" y="155.63" font-family="Helvetica,Arial,sans-serif" font-size="22" fill="#999999">TITLE / NO.</text>
 <line x1="80.00" y1="168.98" x2="1324.00" y2="168.98" stroke="#999999" stroke-width="1.0" stroke-dasharray="3 3"/>
 <line x1="88.06" y1="168.98" x2="88.06" y2="1788.35" stroke="#999999" stroke-width="0.8"/>
 <line x1="105.86" y1="168.98" x2="105.86" y2="1788.35" stroke="#999999" stroke-width="0.8"/>

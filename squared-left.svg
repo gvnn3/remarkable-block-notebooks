@@ -66,5 +66,5 @@
 <line x1="101.41" y1="1692.30" x2="1302.59" y2="1692.30" stroke="#808080" stroke-width="1.0"/>
 <line x1="101.41" y1="1736.79" x2="1302.59" y2="1736.79" stroke="#808080" stroke-width="1.0"/>
 <line x1="101.41" y1="1781.28" x2="1302.59" y2="1781.28" stroke="#808080" stroke-width="1.0"/>
-<text x="145.90" y="85.72" font-family="Helvetica,Arial,sans-serif" font-size="10" fill="#737e99">DATUM/DATE</text>
+<text x="145.90" y="85.72" font-family="Helvetica,Arial,sans-serif" font-size="22" fill="#737e99">DATUM/DATE</text>
 </svg>
