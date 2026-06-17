@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="2480" height="3508" viewBox="0 0 2480 3508">
 <rect width="2480" height="3508" fill="#FAF4E6"/>
-<text x="80.00" y="160.00" font-family="Helvetica,Arial,sans-serif" font-size="42" fill="#737e99" text-anchor="start" font-weight="normal">DATUM/DATE</text>
+<text x="138.00" y="160.00" font-family="Helvetica,Arial,sans-serif" font-size="42" fill="#737e99" text-anchor="start" font-weight="normal">DATUM/DATE</text>
 <line x1="80.00" y1="180.00" x2="80.00" y2="3428.00" stroke="#808080" stroke-width="1.0"/>
 <line x1="138.00" y1="180.00" x2="138.00" y2="3428.00" stroke="#808080" stroke-width="1.0"/>
 <line x1="196.00" y1="180.00" x2="196.00" y2="3428.00" stroke="#808080" stroke-width="1.0"/>

@@ -91,9 +91,13 @@ def write_squared(side: str):
 
     label_y = MARGIN_T + 60
     if side == "right":
-        parts.append(text(x1, label_y, "DATUM/DATE", size=42, anchor="end"))
+        # Match the reMarkable reference: the right-variant label sits right of
+        # center (~2/3 across the grid), not jammed against the right margin.
+        label_x = x0 + round(grid_w * 0.644)
+        parts.append(text(label_x, label_y, "DATUM/DATE", size=42, anchor="middle"))
     else:
-        parts.append(text(x0, label_y, "DATUM/DATE", size=42, anchor="start"))
+        # Inset one cell from the grid's left edge, matching the reference.
+        parts.append(text(x0 + cell, label_y, "DATUM/DATE", size=42, anchor="start"))
 
     for i in range(cols + 1):
         x = x0 + i * cell
