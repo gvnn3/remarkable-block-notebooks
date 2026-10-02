@@ -114,16 +114,16 @@
   {
     "source": "remarkable-pure/pure-mechanical-grid-1mm.svg",
     "package": "remarkable-pure/pure-mechanical-grid-1mm.rmt",
-    "width": 1404.0,
-    "height": 1872.0,
+    "width": 1872,
+    "height": 1404,
     "type": "vector SVG",
-    "name": "Mechanical Grid - 1 mm",
+    "name": "Mechanical Grid - 1 mm Landscape",
     "fileName": "556786a1-0db0-478c-b5cc-1db11d80ba3d",
     "categories": [
       "Grids"
     ],
     "iconCode": "\ue9d5",
-    "landscape": false
+    "landscape": true
   },
   {
     "source": "remarkable-pro-move/move-squared-left.png",

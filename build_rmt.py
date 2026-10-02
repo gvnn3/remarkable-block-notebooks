@@ -41,7 +41,7 @@ def package(source, root, output):
                 'categories': [category], 'iconCode': '\ue9d5', 'landscape': w > h}
     if relative.as_posix() == 'remarkable-pure/pure-mechanical-grid-1mm.svg':
         metadata['fileName'] = '556786a1-0db0-478c-b5cc-1db11d80ba3d'
-        metadata['name'] = 'Mechanical Grid - 1 mm'
+        metadata['name'] = 'Mechanical Grid - 1 mm Landscape'
     target = output / relative.with_suffix('.rmt')
     target.parent.mkdir(parents=True, exist_ok=True)
     payloads = {'template.json': json.dumps(metadata, indent=2, ensure_ascii=True).encode(), 'template.svg': svg}

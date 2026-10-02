@@ -43,7 +43,8 @@ into vector artwork. All original variants are retained, including similarly
 named Paper Pro files. PDF workbooks and lettering practice PDFs are documents,
 so they are not packaged as page templates.
 
-The new Paper Pure Mechanical Grid uses 1 mm squares (at the screen's nominal
+The new Paper Pure Mechanical Grid is landscape (1872 x 1404 pixels), with
+a DATUM/DATE header matching the squared-right design. It uses 1 mm squares (at the screen's nominal
 226 PPI), with stronger lines every 5 mm and 10 mm. Its SVG, PNG, and PDF are in
 `remarkable-pure/`. Keep the original scale when physical spacing matters.
 Its RMT preserves the identifier of the version first created for this grid.
