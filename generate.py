@@ -12,6 +12,16 @@ tablet happens to use.
 Stroke widths are declared in millimetres too, then clamped to at least one
 device pixel: a sub-pixel line aliases away to nothing on e-ink.
 
+Landscape designs are written at the panel's landscape size plus an inset:
+1872 x (1404 + 205) on the Pure.  With the tablet's orientation locked to
+portrait (the way these are used: lock on, turn the tablet, draw) xochitl
+rotates such an image clockwise onto the page, 1:1, shifted so that its first
+LANDSCAPE_TOP_INSET rows are never shown; the extra rows at the bottom fill
+the page that a plain 1404-row image leaves blank.  Measured with ruler
+images.  RCU cannot install this size -- it rasterises every upload at the
+portrait size -- so after an RCU upload the PNG on the tablet is replaced by
+hand (see README).
+
 Optional PNG previews and per-device PDFs are rasterised by headless Chrome.
 Set CHROME_BIN to override the default macOS path.
 """
@@ -79,6 +89,13 @@ MECH_RULE_INSET = 3.0
 MECH_RULE_LENGTH = 40.0
 MECH_LABEL_GAP = 2.0
 
+# Measured on a reMarkable Paper Pure, xochitl 3.28, orientation locked to
+# portrait, with ruler images: a landscape template image is drawn 1:1 but
+# shifted so that its first 205 rows are never shown, whatever its height.
+# A landscape file is therefore 205 rows taller than the page and its
+# drawing starts 205 rows down.  Zero for devices that do not do this.
+LANDSCAPE_TOP_INSET_PX = {'remarkable-pure': 205}
+
 DEVICES = {
     'remarkable-pure': {
         'label': 'reMarkable / reMarkable Paper Pure',
@@ -98,7 +115,8 @@ DEVICES = {
 # the monochrome panels only ever get white.
 BUILD = (
     [('remarkable-pure', d, 'white')
-     for d in ('squared-left', 'squared-right', 'tiny-grid', 'toc', 'mechanical-grid')]
+     for d in ('squared-left', 'squared-right', 'tiny-grid', 'toc',
+               'mechanical-grid', 'mechanical-grid-portrait')]
     + [('remarkable-pro-move', d, 'white')
        for d in ('squared-left', 'squared-right', 'tiny-grid', 'toc')]
     + [('remarkable-paper-pro', d, paper)
@@ -112,6 +130,7 @@ DESIGN_NAMES = {
     'tiny-grid': ('Tiny Grid', 'Grids'),
     'toc': ('Contents', 'Life/organize'),
     'mechanical-grid': ('Mechanical Grid 1 mm', 'Grids'),
+    'mechanical-grid-portrait': ('Mechanical Grid 1 mm Portrait', 'Grids'),
 }
 
 # Raster assets that are not line art and so are packaged as they are.
@@ -154,11 +173,8 @@ class Canvas:
         self.h = height_px
         self.ppi = ppi
         self.px_per_mm = ppi / 25.4
-        self.parts = [
-            f'<svg xmlns="http://www.w3.org/2000/svg" width="{width_px}" '
-            f'height="{height_px}" viewBox="0 0 {width_px} {height_px}">',
-            f'<rect width="{width_px}" height="{height_px}" fill="{background}"/>',
-        ]
+        self.background = background
+        self.parts = []
 
     # -- unit helpers -----------------------------------------------------
     def px(self, mm):
@@ -218,8 +234,16 @@ class Canvas:
         unit = self.px_per_mm / MASTER_PX_PER_MM * scale
         return LETTERING[text]['width'] * unit / self.px_per_mm
 
+    def _document(self, width, height, body):
+        return (
+            f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" '
+            f'height="{height}" viewBox="0 0 {width} {height}">'
+            f'<rect width="{width}" height="{height}" fill="{self.background}"/>'
+            + body + '</svg>\n'
+        )
+
     def render(self):
-        return ''.join(self.parts) + '</svg>\n'
+        return self._document(self.w, self.h, ''.join(self.parts))
 
 
 def fit(extent_mm, margin_mm, cell_mm):
@@ -303,18 +327,21 @@ def draw_toc(canvas, margin):
         pair(TOC_HEAD_RULE + i * TOC_ROW_PITCH)
 
 
-def draw_mechanical(canvas):
-    """Landscape 1 mm engineering grid with 5 mm and 10 mm emphasis."""
-    def decades(span_mm, allowance):
-        usable = span_mm - allowance
+def draw_mechanical(canvas, top_inset=0.0):
+    """1 mm engineering grid with 5 mm and 10 mm emphasis, a frame and a
+    date band; fits whole decades into whatever page it is given, so the
+    same routine serves the landscape and the portrait variant.  `top_inset`
+    (mm) is page kept clear at the top, see LANDSCAPE_TOP_INSET."""
+    def decades(span_mm, allowance, inset=0.0):
+        usable = span_mm - inset - allowance
         count = int(math.floor(usable / MECH_DECADE + 1e-9))
         if count < 2:
             raise ValueError('no room for a mechanical grid')
         extent = count * MECH_DECADE
-        return extent, (span_mm - extent) / 2
+        return extent, inset + (span_mm - inset - extent) / 2
 
     frame_w, fx = decades(canvas.mm_w(), MECH_SIDE_ALLOWANCE)
-    frame_h, fy = decades(canvas.mm_h(), MECH_END_ALLOWANCE)
+    frame_h, fy = decades(canvas.mm_h(), MECH_END_ALLOWANCE, top_inset)
     grid_y0 = fy + MECH_BAND
     grid_h = frame_h - MECH_BAND
 
@@ -345,10 +372,13 @@ def draw_mechanical(canvas):
 
 
 def build_svg(device, design, paper):
+    """Return (svg, width, height, landscape); a landscape design is drawn
+    on the panel's swapped size, which is how the tablet wants it."""
     spec = DEVICES[device]
     landscape = design == 'mechanical-grid'
+    inset_px = LANDSCAPE_TOP_INSET_PX.get(device, 0) if landscape else 0
     width = spec['height'] if landscape else spec['width']
-    height = spec['width'] if landscape else spec['height']
+    height = spec['width'] + inset_px if landscape else spec['height']
     canvas = Canvas(width, height, spec['ppi'], PAPER[paper])
     margin = spec['margin']
 
@@ -359,10 +389,12 @@ def build_svg(device, design, paper):
     elif design == 'toc':
         draw_toc(canvas, margin)
     elif design == 'mechanical-grid':
+        draw_mechanical(canvas, inset_px / canvas.px_per_mm)
+    elif design == 'mechanical-grid-portrait':
         draw_mechanical(canvas)
     else:
         raise ValueError(f'unknown design {design!r}')
-    return canvas.render(), width, height
+    return canvas.render(), width, height, landscape, inset_px
 
 
 def template_id(key, existing):
@@ -425,9 +457,17 @@ def rasterise(entries, out_root, build_dir):
             pages = []
             for entry in items:
                 svg = (out_root / entry['source']).read_text()
+                inset = entry.get('inset', 0)
+                if inset:
+                    # The sheet shows what the tablet shows: drop the rows
+                    # above the inset.
+                    w, h = entry['width'], entry['height'] - inset
+                    svg = svg.replace(
+                        f'height="{entry["height"]}" viewBox="0 0 {w} {entry["height"]}"',
+                        f'height="{h}" viewBox="0 {inset} {w} {h}"', 1)
                 pages.append(f'<div class="page">{svg}</div>')
             page_w = items[0]['width'] / ppi * 25.4
-            page_h = items[0]['height'] / ppi * 25.4
+            page_h = (items[0]['height'] - items[0].get('inset', 0)) / ppi * 25.4
             sheet = build_dir / f'{device}-{int(landscape)}.html'
             sheet.write_text(
                 '<!DOCTYPE html><html><head><style>'
@@ -467,7 +507,7 @@ def main():
     for device, design, paper in BUILD:
         stem = design if paper == 'white' else f'{design}-{paper}'
         key = f'{device}/{stem}'
-        svg, width, height = build_svg(device, design, paper)
+        svg, width, height, landscape, inset_px = build_svg(device, design, paper)
         target = out_root / device / f'{stem}.svg'
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(svg)
@@ -479,7 +519,8 @@ def main():
             'name': name, 'category': category,
             'source': f'{device}/{stem}.svg',
             'width': width, 'height': height,
-            'landscape': width > height, 'iconCode': ICON_CODE,
+            'landscape': landscape, 'iconCode': ICON_CODE,
+            'inset': inset_px,
         })
 
     for device, filename, name, category in IMAGE_TEMPLATES:

@@ -28,6 +28,27 @@ Labels are drawn as glyph outlines taken from the original masters and stored
 in `lettering.json`. The templates reference no font and contain no `<text>`,
 so they render the same under any rasteriser.
 
+Landscape designs (the mechanical grid) are drawn at the panel's landscape
+size plus an inset, 1872 × 1609 on the Pure, with `landscape: true` in the
+metadata, for use with the orientation lock on: lock portrait, turn the
+tablet so the toolbar is at the bottom, draw. In that mode xochitl 3.28
+rotates the image onto the page 1:1 and shifts it so that its first 205 rows
+are never shown, whatever its height (measured with ruler images). The file
+is therefore 205 rows taller than the page, the drawing starts 205 rows down
+(`LANDSCAPE_TOP_INSET_PX`), and the visible 1404 rows carry 15 decades. The
+PDF sheet shows only the visible rows. RCU cannot install this size: it
+rasterises every upload at the portrait size, and the tablet then clips that
+image to a square. After uploading a landscape `.rmt` with RCU, copy the
+package's PNG over the installed one and restart the UI:
+
+```sh
+scp remarkable-pure/mechanical-grid.png root@10.11.99.1:/home/root/.local/share/remarkable/templates/<uuid>.png
+ssh root@10.11.99.1 systemctl restart xochitl
+```
+
+where `<uuid>` is the filename RCU assigned (see the entry in
+`/usr/share/remarkable/templates/templates.json`).
+
 | Panel | Pixels | PPI |
 | --- | --- | --- |
 | reMarkable / Paper Pure | 1404 × 1872 | 226 |
@@ -36,10 +57,11 @@ so they render the same under any rasteriser.
 
 ## Templates
 
-Eighteen packages, one `.rmt` per entry in `templates.json`:
+Nineteen packages, one `.rmt` per entry in `templates.json`:
 
 - `remarkable-pure/` — squared left, squared right, tiny grid, contents,
-  mechanical grid (landscape, 1872 × 1404).
+  mechanical grid (landscape, 1872 × 1404) and mechanical grid portrait (the
+  same 1 mm grid on an upright page).
 - `remarkable-pro-move/` — squared left, squared right, tiny grid, contents.
 - `remarkable-paper-pro/` — those four on white and on ivory (`#F6F2E8`),
   plus a Fahrenheit 451 cover.

@@ -75,7 +75,7 @@
     "package": "remarkable-pure/mechanical-grid.rmt",
     "source": "remarkable-pure/mechanical-grid.svg",
     "width": 1872,
-    "height": 1404,
+    "height": 1609,
     "members": [
       "template.json",
       "template.svg",
@@ -88,6 +88,24 @@
     ],
     "iconCode": "\ue9d5",
     "landscape": true
+  },
+  {
+    "package": "remarkable-pure/mechanical-grid-portrait.rmt",
+    "source": "remarkable-pure/mechanical-grid-portrait.svg",
+    "width": 1404,
+    "height": 1872,
+    "members": [
+      "template.json",
+      "template.svg",
+      "template.png"
+    ],
+    "name": "Mechanical Grid 1 mm Portrait",
+    "fileName": "96885e0e-e009-53b2-bd1a-c37fa9e01652",
+    "categories": [
+      "Grids"
+    ],
+    "iconCode": "\ue9d5",
+    "landscape": false
   },
   {
     "package": "remarkable-pro-move/squared-left.rmt",

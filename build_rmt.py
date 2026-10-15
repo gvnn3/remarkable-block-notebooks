@@ -2,10 +2,13 @@
 """Package the generated templates as RCU .rmt archives.
 
 An .rmt is a USTAR tar holding template.json and template.svg, as documented
-in Appendix D of the RCU manual.  RCU rasterises the SVG itself on upload, but
-where generate.py has already produced a preview PNG at the native panel
-resolution we ship that too: the one template confirmed working on a tablet
-carried its own template.png, and matching it costs only file size.
+in Appendix D of the RCU manual.  RCU rasterises the SVG itself on upload, at
+the panel's portrait size whatever the SVG's viewport says, and ignores any
+template.png in the archive.  The tablet draws a template image 1:1 in page
+coordinates, so that is fine for portrait designs and wrong for landscape
+ones: a landscape package installs with a squashed PNG that the tablet then
+clips.  The real landscape PNG is shipped in the archive anyway and must be
+copied over the installed one by hand after upload (see README).
 
 Identity, display name and category come from templates.json, which is written
 by generate.py and checked in.  fileName is a stable UUID from that catalog --
@@ -86,13 +89,18 @@ def payloads_for(entry, root, with_png):
             f'{entry["source"]} is {width}x{height}, '
             f'catalog says {entry["width"]}x{entry["height"]}'
         )
+    if (width > height) != entry['landscape']:
+        raise BuildError(
+            f'{entry["source"]} is {width}x{height} but the catalog says '
+            f'landscape={entry["landscape"]}'
+        )
 
     metadata = {
         'name': entry['name'],
         'fileName': entry['id'],
         'categories': [entry['category']],
         'iconCode': entry['iconCode'],
-        'landscape': width > height,
+        'landscape': entry['landscape'],
     }
     members = {
         'template.json': json.dumps(metadata, indent=2,

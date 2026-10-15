@@ -8,7 +8,8 @@
     "width": 1404,
     "height": 1872,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-pure/squared-right",
@@ -19,7 +20,8 @@
     "width": 1404,
     "height": 1872,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-pure/tiny-grid",
@@ -30,7 +32,8 @@
     "width": 1404,
     "height": 1872,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-pure/toc",
@@ -41,7 +44,8 @@
     "width": 1404,
     "height": 1872,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-pure/mechanical-grid",
@@ -50,9 +54,22 @@
     "category": "Grids",
     "source": "remarkable-pure/mechanical-grid.svg",
     "width": 1872,
-    "height": 1404,
+    "height": 1609,
     "landscape": true,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 205
+  },
+  {
+    "key": "remarkable-pure/mechanical-grid-portrait",
+    "id": "96885e0e-e009-53b2-bd1a-c37fa9e01652",
+    "name": "Mechanical Grid 1 mm Portrait",
+    "category": "Grids",
+    "source": "remarkable-pure/mechanical-grid-portrait.svg",
+    "width": 1404,
+    "height": 1872,
+    "landscape": false,
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-pro-move/squared-left",
@@ -63,7 +80,8 @@
     "width": 954,
     "height": 1696,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-pro-move/squared-right",
@@ -74,7 +92,8 @@
     "width": 954,
     "height": 1696,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-pro-move/tiny-grid",
@@ -85,7 +104,8 @@
     "width": 954,
     "height": 1696,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-pro-move/toc",
@@ -96,7 +116,8 @@
     "width": 954,
     "height": 1696,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-paper-pro/squared-left",
@@ -107,7 +128,8 @@
     "width": 1620,
     "height": 2160,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-paper-pro/squared-right",
@@ -118,7 +140,8 @@
     "width": 1620,
     "height": 2160,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-paper-pro/tiny-grid",
@@ -129,7 +152,8 @@
     "width": 1620,
     "height": 2160,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-paper-pro/toc",
@@ -140,7 +164,8 @@
     "width": 1620,
     "height": 2160,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-paper-pro/squared-left-ivory",
@@ -151,7 +176,8 @@
     "width": 1620,
     "height": 2160,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-paper-pro/squared-right-ivory",
@@ -162,7 +188,8 @@
     "width": 1620,
     "height": 2160,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-paper-pro/tiny-grid-ivory",
@@ -173,7 +200,8 @@
     "width": 1620,
     "height": 2160,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-paper-pro/toc-ivory",
@@ -184,7 +212,8 @@
     "width": 1620,
     "height": 2160,
     "landscape": false,
-    "iconCode": "\ue9d5"
+    "iconCode": "\ue9d5",
+    "inset": 0
   },
   {
     "key": "remarkable-paper-pro/cover-fahrenheit451",
